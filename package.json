@@ -1,0 +1,26 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "accessKey: AKIAID47TY3RF7K7C6PQ\r SecretAcessKey: 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",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "webpack ./public/js/main.js ./dist/bundle.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "engine": {
+    "node": "6.11.0"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "hogan-express": "^0.5.2",
+    "knox": "^0.9.2",
+    "nodemon": "^1.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10"
+  }
+}

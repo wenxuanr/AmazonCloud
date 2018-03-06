@@ -1,0 +1,7 @@
+{
+  "host": "http://locahost:3000",
+  "accessKey":"AKIAIMUFO2X4MC5XIA5Q",
+  "secretKey":"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",
+  "S3Bucket":"chatsystem",
+  "region":"us-east-2"
+}
