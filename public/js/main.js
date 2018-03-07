@@ -5,20 +5,32 @@ var messages = [], //array that hold the record of each string in chat
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'Chatbot', //name of the chatbot
     talking = true; //when false the speach function doesn't work
-var apiClient = apigClientFactory.newClient();
-AWSCognito.config.region = 'us-east-2';
-
-
+let apiClient = {};
 var getParameterByName = function(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-};
 
+    if (!url) url = window.location.href;
+
+    name = name.replace(/[\[\]]/g, "\\$&");
+
+    console.log(name);
+
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+
+        results = regex.exec(url);
+
+    console.log(results);
+
+    if (!results) return null;
+
+    if (!results[2]) return '';
+
+    console.log(results[2]);
+
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+
+};
+console.log(getParameterByName("code"));
+// Exchange code for id_token and credentials.
 
 var exchangeAuthCodeForCredentials = function({auth_code = getParameterByName("code")
                                                   ,client_id = AWSconfig.client_id,
@@ -61,10 +73,12 @@ var exchangeAuthCodeForCredentials = function({auth_code = getParameterByName("c
                         reject(error);
                     } else {
                         console.log('successfully logged in');
-                        resolve(AWS.config.credentials);
                         AWSconfig.secretKey = AWS.config.credentials.secretAccessKey;
                         AWSconfig.accessKey = AWS.config.credentials.accessKeyId;
                         AWSconfig.sessionToken = AWS.config.credentials.sessionToken;
+                        apiClient = apigClientFactory.newClient(AWSconfig);
+                        resolve(AWS.config.credentials);
+
                     }
                 });
             } else {
@@ -74,6 +88,7 @@ var exchangeAuthCodeForCredentials = function({auth_code = getParameterByName("c
     });
 };
 exchangeAuthCodeForCredentials(2,2,2,2,2,2,2);
+
 
 function chatbotResponse() {
     talking = true;
@@ -90,11 +105,10 @@ function chatbotResponse() {
     var body = {
         "userInput" : lastUserMessage
     };
-    apiClient.chatbotPost(params, body)
+    apiClient.chatbotPost(params, body,{})
         .then(function(result){
             // Add success callback code here.
             console.log("success");
-            console.log(result);
             let data = result.data;
             const message = data.body.databack;
             botMessage = message;
@@ -113,18 +127,7 @@ function chatbotResponse() {
         botMessage = 'My name is ' + botName;
     }
 }
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//
-//
-//
-//this runs each time enter is pressed.
-//It controls the overall input and output
+
 function newEntry() {
     //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
@@ -133,8 +136,6 @@ function newEntry() {
 }
 
 
-
-//runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {

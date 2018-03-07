@@ -21,7 +21,7 @@ apigClientFactory.newClient = function (config) {
         config = {
             accessKey: AWSconfig.accessKey,
             secretKey: AWSconfig.secretKey,
-            sessionToken: '',
+            sessionToken: AWSconfig.sessionToken,
             region: AWSconfig.region,
             apiKey: undefined,
             defaultContentType: 'application/json',
