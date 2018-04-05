@@ -6,7 +6,8 @@ var messages = [], //array that hold the record of each string in chat
     botName = 'Chatbot', //name of the chatbot
     talking = true; //when false the speach function doesn't work
 let apiClient = {};
-var getParameterByName = function(name, url) {
+
+let getParameterByName = function(name, url) {
 
     if (!url) url = window.location.href;
 
@@ -101,7 +102,7 @@ function chatbotResponse() {
     messages.push(lastUserMessage);
     var params = {
 
-       };
+    };
     var body = {
         "userInput" : lastUserMessage
     };
