@@ -1,3 +1,10 @@
 node_modules
 .idea
+config.js
+bundle.js
+aws-sdk.min.js
+aws-cognito-sdk.min.js
+amazon-cognito-auth.min.js
+apigClient.js
+jquery-3.3.1.min.js
 assignment1.docx

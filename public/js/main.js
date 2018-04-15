@@ -6,20 +6,19 @@ var messages = [], //array that hold the record of each string in chat
     botName = 'Chatbot', //name of the chatbot
     talking = true; //when false the speach function doesn't work
 let apiClient = {};
-
-let getParameterByName = function(name, url) {
+var getParameterByName = function(name, url) {
 
     if (!url) url = window.location.href;
 
     name = name.replace(/[\[\]]/g, "\\$&");
 
     console.log(name);
-
+    //
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
 
         results = regex.exec(url);
 
-    console.log(results);
+    // console.log(results);
 
     if (!results) return null;
 
@@ -30,8 +29,10 @@ let getParameterByName = function(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 
 };
-console.log(getParameterByName("code"));
+// console.log(getParameterByName("code"));
 // Exchange code for id_token and credentials.
+
+console.log(AWSconfig.cognito_domain_url);
 
 var exchangeAuthCodeForCredentials = function({auth_code = getParameterByName("code")
                                                   ,client_id = AWSconfig.client_id,
@@ -102,7 +103,7 @@ function chatbotResponse() {
     messages.push(lastUserMessage);
     var params = {
 
-    };
+       };
     var body = {
         "userInput" : lastUserMessage
     };
